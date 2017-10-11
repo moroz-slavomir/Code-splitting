@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Tabs } from './app/Tabs.jsx';
-import { TodoListRedux } from '../containers-redux/todo-list/TodoList.jsx';
-import { SavingStatus } from '../containers-redux/todo-list/SavingStatus.jsx';
+import { Route } from 'react-router-dom';
+import { ROOT } from '../constants/routes';
+import { Tabs } from './Tabs.jsx';
+import { Content } from './Content.jsx';
+import { SavingStatusLayout} from './app/SavingStatusLayout.jsx';
 
 const Layout = () => (
     <div className="container">
@@ -12,12 +14,14 @@ const Layout = () => (
             <div className="col-xs-7 col-md-4">
                 <Tabs />
             </div>
-            <div className="col-xs-2 col-md-2">
-                <SavingStatus />
-            </div>
+            <Route
+                exact
+                path={ROOT}
+                component={SavingStatusLayout}
+            />
         </div>
         <div className="row form-group">
-            <TodoListRedux />
+            <Content />
         </div>
         <div className="row">
             <div className="col-xs-12 h5">
