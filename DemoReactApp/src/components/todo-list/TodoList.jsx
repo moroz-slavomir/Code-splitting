@@ -58,14 +58,14 @@ class TodoList extends React.PureComponent {
         return (
             <div className="col-xs-12">
                 <div className="row">
-                    <div className="col-xs-12 col-sm-9 col-md-6">
+                    <div className="col-xs-12">
                         <TransitionGroup>
                             {itemElements}
                         </TransitionGroup>
                     </div>
                 </div>
                 <ButtonRow className="row">
-                    <div className="col-xs-12 col-sm-9 col-md-6">
+                    <div className="col-xs-12">
                         {!this.props.createNewFormVisible ?
                             <button
                                 type="button"

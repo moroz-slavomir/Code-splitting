@@ -27,3 +27,10 @@ export const failAuthentication = (errorMessage, error) => ({
         },
     }
 });
+
+export const dismissError = (errorId) => ({
+    type: actionTypes.SHARED_DISMISS_ERROR,
+    payload: {
+        errorId,
+    }
+});
