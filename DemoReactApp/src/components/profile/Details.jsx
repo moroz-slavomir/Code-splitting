@@ -2,8 +2,28 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Input } from './Input.jsx';
+import { UpdatePane } from './UpdatePane.jsx';
+import {
+    validateNonEmptyness,
+    validatePhone
+} from '../../utils/validation';
+import * as formStates from '../../constants/formStates';
 
-const Details = ({ handleSubmit }) => (
+const validateFullName = validateNonEmptyness('full name');
+
+const getFormState = (dirty, valid) => {
+    if(!dirty) {
+        return formStates.NOT_CHANGED;
+    }
+
+    if(!valid) {
+        return formStates.INVALID;
+    }
+
+    return formStates.SAVEAVBLE;
+};
+
+const Details = ({ handleSubmit, valid, dirty }) => (
     <div className="panel panel-default">
         <div className="panel-body">
             <form onSubmit={handleSubmit}>
@@ -13,6 +33,7 @@ const Details = ({ handleSubmit }) => (
                     screenReaderName="E-mail"
                     glyphiconClassName="glyphicon-envelope"
                     readOnly
+                    required
                     name="email"
                     component={Input}
                 />
@@ -22,7 +43,9 @@ const Details = ({ handleSubmit }) => (
                     screenReaderName="Full name"
                     glyphiconClassName="glyphicon-user"
                     name="fullName"
+                    required
                     component={Input}
+                    validate={validateFullName}
                 />
                 <Field
                     type="tel"
@@ -31,20 +54,18 @@ const Details = ({ handleSubmit }) => (
                     glyphiconClassName="glyphicon-phone"
                     name="phone"
                     component={Input}
+                    validate={validatePhone}
                 />
 
-                <button
-                    type="submit"
-                    className="btn btn-primary btn-block"
-                >
-                    Update details
-                </button>
+                <UpdatePane formState={getFormState(dirty, valid)}/>
             </form>
         </div>
     </div>
 );
 
 Details.propTypes = {
+    valid: PropTypes.bool.isRequired,
+    dirty: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
 };
 

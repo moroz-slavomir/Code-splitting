@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const formConfig = {
     form: 'DetailsForm',
+    touchOnChange: true,
 };
 
 const stateEnhancer = connect(mapStateToProps, mapDispatchToProps);

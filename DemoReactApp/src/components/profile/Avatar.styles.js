@@ -5,7 +5,7 @@ export const AvatarImage = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center; 
-    height: 192px;
+    height: 197px;
     overflow: hidden;
     margin: 10px 5px;
 `;
