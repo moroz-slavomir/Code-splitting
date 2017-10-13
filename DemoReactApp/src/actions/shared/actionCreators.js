@@ -1,5 +1,5 @@
-import { uuid } from '../../utils/uuidGenerator';
 import * as actionTypes from '../../constants/actionTypes';
+import { errorActionFactory } from '../../utils/errorActionFactory';
 
 export const receiveValidToken = (token) => ({
     type: actionTypes.SHARED_RECEIVE_TOKEN,
@@ -16,21 +16,11 @@ export const startAuthentication = () => ({
     type: actionTypes.SHARED_AUTHENTICATION_STARTED,
 });
 
-export const failAuthentication = (errorMessage, error) => ({
-    type: actionTypes.SHARED_AUTHENTICATION_FAILED,
-    payload: {
-        error: {
-            id: uuid(),
-            message: errorMessage,
-            statusText: error.message,
-            statusCode: error.statusCode,
-        },
-    }
-});
-
 export const dismissError = (errorId) => ({
     type: actionTypes.SHARED_DISMISS_ERROR,
     payload: {
         errorId,
     }
 });
+
+export const failAuthentication = errorActionFactory(actionTypes.SHARED_AUTHENTICATION_FAILED);

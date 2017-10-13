@@ -1,14 +1,30 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Avatar } from './Avatar.jsx';
 import { Details } from '../../containers-redux/profile/Details.jsx';
+import { Loader } from '../../containers-redux/shared/Loader.jsx';
 
-const Profile = () => [
-    <div className="col-xs-12 col-md-4" key="picture">
-        <Avatar />
-    </div>,
-    <div className="col-xs-12 col-md-8" key="details">
-        <Details />
-    </div>
-];
+class Profile extends React.PureComponent {
+    static propTypes = {
+        fetchDetails: PropTypes.func.isRequired,
+    };
+
+    componentWillMount() {
+        this.props.fetchDetails();
+    }
+
+    render() {
+        return [
+            <div className="col-xs-12 col-md-4" key="picture">
+                <Avatar />
+            </div>,
+            <div className="col-xs-12 col-md-8" key="details">
+                <Loader stateLoadingSelector={state => state.profile.isFetchingDetails}>
+                    <Details />
+                </Loader>
+            </div>
+        ];
+    }
+}
 
 export { Profile };
