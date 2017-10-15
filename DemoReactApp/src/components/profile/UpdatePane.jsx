@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Alert } from './UpdatePane.styles';
 import * as formStates from '../../constants/formStates';
+import { SavingSpinner } from '../shared/SavingSpinner.jsx';
 
 const NoChangedDetails = () => (
     <Alert
@@ -30,6 +31,17 @@ const SubmitDetails = () => (
     </button>
 );
 
+const UploadingDetails = () => (
+    <Alert
+        className="well-sm alert-warning text-center"
+        role="alert"
+    >
+        <SavingSpinner />
+        &nbsp;
+        Saving…
+    </Alert>
+);
+
 const UpdatePane = ({ formState }) => {
     switch (formState) {
         case formStates.NOT_CHANGED:
@@ -40,6 +52,9 @@ const UpdatePane = ({ formState }) => {
 
         case formStates.SAVEAVBLE:
             return <SubmitDetails />;
+
+        case formStates.SAVING_NOW:
+            return <UploadingDetails />;
 
         default:
             throw new Error(`Unknown form state "${formState}"`);

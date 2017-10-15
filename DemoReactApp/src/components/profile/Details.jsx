@@ -11,7 +11,7 @@ import * as formStates from '../../constants/formStates';
 
 const validateFullName = validateNonEmptyness('full name');
 
-const getFormState = (dirty, valid) => {
+const getFormState = (dirty, valid, submitting ) => {
     if(!dirty) {
         return formStates.NOT_CHANGED;
     }
@@ -20,10 +20,14 @@ const getFormState = (dirty, valid) => {
         return formStates.INVALID;
     }
 
+    if(submitting) {
+        return formStates.SAVING_NOW;
+    }
+
     return formStates.SAVEAVBLE;
 };
 
-const Details = ({ handleSubmit, valid, dirty }) => (
+const Details = ({ handleSubmit, valid, dirty, submitting }) => (
     <div className="panel panel-default">
         <div className="panel-body">
             <form onSubmit={handleSubmit}>
@@ -57,7 +61,7 @@ const Details = ({ handleSubmit, valid, dirty }) => (
                     validate={validatePhone}
                 />
 
-                <UpdatePane formState={getFormState(dirty, valid)}/>
+                <UpdatePane formState={getFormState(dirty, valid, submitting)}/>
             </form>
         </div>
     </div>
@@ -66,6 +70,7 @@ const Details = ({ handleSubmit, valid, dirty }) => (
 Details.propTypes = {
     valid: PropTypes.bool.isRequired,
     dirty: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
 };
 

@@ -7,13 +7,16 @@ import {
     USER_EMAIL,
     createApiUserUri
 } from '../../constants/api';
-import { invalidateToken } from '../shared/actionCreators';
+import {
+    failAuthentication,
+    invalidateToken
+} from '../shared/actionCreators';
 import { fetchReceive } from '../../utils/api/fetchReceive';
-
-const convertDetails = (serverDetails) => ({
-    ...JSON.parse(serverDetails.customData || '{}'),
-    email: serverDetails.email,
-});
+import { convertFromServerDetails } from '../../utils/api/conversions/profileDetails';
+import {
+    EXPIRED_AUTHENTICATION_MESSAGE,
+    FAILED_FETCH_DETAILS_MESSAGE
+} from '../../constants/uiConstants';
 
 export const fetchUserDetails = () =>
     (dispatch, getState) => {
@@ -23,9 +26,13 @@ export const fetchUserDetails = () =>
         const requestUri = createApiUserUri(USER_EMAIL);
 
         return fetchReceive(requestUri, authToken)
-            .then((serverDetails) => dispatch(updateProfileDetails(convertDetails(serverDetails))))
-            .catch((error) => error.statusCode === 401
-                ? dispatch(invalidateToken())
-                : Promise.reject(error))
-            .catch((error) => dispatch(failFetchingProfileDetails(error.message)));
+            .then((serverDetails) => dispatch(updateProfileDetails(convertFromServerDetails(serverDetails))))
+            .catch((error) => {
+                if (error.statusCode === 401) {
+                    dispatch(invalidateToken());
+                    return dispatch(failAuthentication(EXPIRED_AUTHENTICATION_MESSAGE));
+                }
+                throw error;
+            })
+            .catch((error) => dispatch(failFetchingProfileDetails(FAILED_FETCH_DETAILS_MESSAGE, error)));
     };
