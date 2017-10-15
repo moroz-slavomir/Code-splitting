@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Avatar } from '../../containers/profile/Avatar.jsx';
+import { Avatar } from '../../containers-redux/profile/Avatar.jsx';
 import { Details } from '../../containers-redux/profile/Details.jsx';
 import { Loader } from '../../containers-redux/shared/Loader.jsx';
 

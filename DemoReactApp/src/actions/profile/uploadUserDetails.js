@@ -10,38 +10,18 @@ import {
     USER_EMAIL,
     createApiUserUri
 } from '../../constants/api';
-import {
-    dismissError,
-    invalidateToken,
-    failAuthentication,
-} from '../shared/actionCreators';
+import { dismissError } from '../shared/actionCreators';
 import { fetchRequest } from '../../utils/api/fetchRequest';
 import {
     convertFromServerDetails,
     convertToServerDetails
 } from '../../utils/api/conversions/profileDetails';
 import { DETAILS_FORM_NAME } from '../../constants/formNames';
+import { performAuthorizedRequest } from './performAuthorizedRequest';
 import {
     FAILED_UPDATE_DETAILS_MESSAGE,
-    FAILED_AUTHENTICATION_MESSAGE,
     MILISECONDS_TO_AUTO_DISMISS_ERROR,
-
 } from '../../constants/uiConstants';
-
-
-const performAuthorizedRequest = async (dispatch, requestAction) => {
-    try {
-        return await requestAction();
-    }
-    catch (error) {
-        if (error.statusCode === 401) {
-            dispatch(invalidateToken());
-            return dispatch(failAuthentication(FAILED_AUTHENTICATION_MESSAGE));
-        }
-
-        throw error;
-    }
-};
 
 export const uploadUserDetails = (details) =>
     async (dispatch, getState) => {

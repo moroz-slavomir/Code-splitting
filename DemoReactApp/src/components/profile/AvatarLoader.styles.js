@@ -4,6 +4,7 @@ export const AvatarLoaderPane = styled.div`
     position: relative;
     height: 100%;
     min-height: 100%;
+    cursor: ${(props) => props.isUploading ? 'progress' : 'pointer'};
     
     & > .dropzone {
         width: 100%;
