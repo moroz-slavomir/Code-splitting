@@ -21,10 +21,13 @@ import {
     convertToServerDetails
 } from '../../utils/api/conversions/profileDetails';
 import { DETAILS_FORM_NAME } from '../../constants/formNames';
+import {
+    FAILED_UPDATE_DETAILS_MESSAGE,
+    FAILED_AUTHENTICATION_MESSAGE,
+    MILISECONDS_TO_AUTO_DISMISS_ERROR,
 
-const MILISECONDS_TO_AUTO_DISMISS_ERROR = 2000;
-const FAILED_UPDATE_DETAILS_MESSAGE = 'Updating details went grievously wrong…';
-const FAILED_AUTHENTICATION_MESSAGE = 'Your authentication unhappily expired…';
+} from '../../constants/uiConstants';
+
 
 const performAuthorizedRequest = async (dispatch, requestAction) => {
     try {
@@ -56,7 +59,7 @@ export const uploadUserDetails = (details) =>
             });
         }
         catch (error) {
-            const dispatchedAction = dispatch(failUploadingProfileDetails(FAILED_UPDATE_DETAILS_MESSAGE));
+            const dispatchedAction = dispatch(failUploadingProfileDetails(FAILED_UPDATE_DETAILS_MESSAGE, error));
             setTimeout(() => dispatch(dismissError(dispatchedAction.payload.error.id)), MILISECONDS_TO_AUTO_DISMISS_ERROR);
         }
 
