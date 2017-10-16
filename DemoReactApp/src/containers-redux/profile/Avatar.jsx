@@ -5,6 +5,7 @@ import { withOverlay } from '../../components/shared/withOverlay.jsx';
 import { uploadUserAvatar } from '../../actions/profile/uploadUserAvatar';
 
 const mapStateToProps = (state) => ({
+    uri: state.profile.avatarUri,
     isUploading: state.profile.isUploadingAvatar,
 });
 

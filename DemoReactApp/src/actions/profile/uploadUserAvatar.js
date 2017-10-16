@@ -8,6 +8,7 @@ import {
 import { performAuthorizedRequest } from './performAuthorizedRequest';
 import { fetchFileUpload } from '../../utils/api/fetchFileUpload';
 import { uploadUserDetails } from './uploadUserDetails';
+import { fetchUserAvatar } from './fetchUserAvatar';
 import {
     FAILED_UPDATE_AVATAR_MESSAGE,
     MILISECONDS_TO_AUTO_DISMISS_ERROR
@@ -34,7 +35,8 @@ export const uploadUserAvatar = (file) =>
                     ...getState().profile.details,
                     avatarId: uploadResult[0].id,
                 };
-                return await dispatch(uploadUserDetails(updatedDetails));
+                await dispatch(uploadUserDetails(updatedDetails));
+                await dispatch(fetchUserAvatar(updatedDetails.avatarId));
             });
         }
         catch (error) {

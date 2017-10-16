@@ -16,7 +16,9 @@ class Profile extends React.PureComponent {
     render() {
         return [
             <div className="col-xs-12 col-md-4" key="picture">
-                <Avatar />
+                <Loader stateLoadingSelector={state => state.profile.isFetchingAvatar}>
+                    <Avatar />
+                </Loader>
             </div>,
             <div className="col-xs-12 col-md-8" key="details">
                 <Loader stateLoadingSelector={state => state.profile.isFetchingDetails}>
