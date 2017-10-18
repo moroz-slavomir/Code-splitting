@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import {uuid} from '../../utils/uuidGenerator';
 import { TodoListEditedItem } from '../../containers/todo-list/TodoListEditedItem.jsx';
 import {
-    createNewItem,
     closeCreateNewForm,
 } from '../../actions/todo-list/actionCreators';
+import { createNewItem } from '../../actions/todo-list';
 
 const mapStateToProps = () => ({
     submitButtonText: 'Create',

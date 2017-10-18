@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { SavingStatus } from '../../components/todo-list/SavingStatus.jsx';
-import { saveItems } from '../../actions/todo-list/saveItems';
+import { saveItems } from '../../actions/todo-list';
 
 const mapStateToProps = (state) => ({
     watchedEntity: state.todoApp.items,

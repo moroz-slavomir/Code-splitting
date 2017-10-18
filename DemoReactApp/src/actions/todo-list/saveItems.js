@@ -4,12 +4,12 @@ import {
     savingStarted
 } from './actionCreators';
 
-export const saveItems = () =>
+export const saveItemsFactory = (setItemToStorage) => () =>
     (dispatch, getState) => {
         dispatch(savingStarted());
         setTimeout(() => {
-            localStorage.setItem(keys.ITEMS_ALL_IDS, JSON.stringify(getState().todoApp.items.allIds.toJS()));
-            localStorage.setItem(keys.ITEMS_BY_ID, JSON.stringify(getState().todoApp.items.byId.toJS()));
+            setItemToStorage(keys.ITEMS_ALL_IDS, JSON.stringify(getState().todoApp.items.allIds.toJS()));
+            setItemToStorage(keys.ITEMS_BY_ID, JSON.stringify(getState().todoApp.items.byId.toJS()));
 
             dispatch(savingFinished());
         }, 1000);

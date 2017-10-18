@@ -2,7 +2,7 @@ import {
     savingFinished,
     savingStarted
 } from './actionCreators';
-import { saveItems } from './saveItems';
+import { saveItemsFactory } from './saveItems';
 
 test('dispatches actions in the correct order', () => {
     const dispatch = jest.fn();
@@ -19,12 +19,10 @@ test('dispatches actions in the correct order', () => {
         }
     });
 
+    const saveItems = saveItemsFactory(jest.fn());
     const dispatchable = saveItems();
 
     jest.useFakeTimers();
-    global.localStorage = {
-        setItem: jest.fn()
-    };
 
     dispatchable(dispatch, getState);
 
