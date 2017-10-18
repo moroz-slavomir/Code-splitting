@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shows spinner when saving in progress 1`] = `
+<span
+  className="navbar-right sc-bdVaJa liQyis"
+>
+  <i
+    alt="saving"
+    className="sc-bwzfXH fdfeVp"
+  >
+    _
+  </i>
+   
+  Saving
+</span>
+`;
