@@ -1,7 +1,7 @@
-import { uuid } from '../../utils/uuidGenerator';
 import * as actionTypes from '../../constants/actionTypes';
+import { uuid } from '../../utils/uuidGenerator';
 
-export const createNewItem = (newItem) => ({
+export const createNewItemFactory = (uuid) => (newItem) => ({
     type: actionTypes.TODO_LIST_ITEM_CREATE,
     payload: {
         item: {
@@ -12,6 +12,8 @@ export const createNewItem = (newItem) => ({
         },
     }
 });
+
+export const createNewItem = createNewItemFactory(uuid);
 
 export const updateItem = (item) => ({
     type: actionTypes.TODO_LIST_ITEM_UPDATE,
