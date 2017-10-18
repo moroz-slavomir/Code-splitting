@@ -1,13 +1,18 @@
 import { editedItemId } from './editedItemId';
-import { TODO_LIST_ITEM_START_EDITING } from '../../constants/actionTypes';
+import {
+    cancelEditingItem,
+    startEditingItem
+} from '../../actions/todo-list/actionCreators';
 
-test('stores id of the edited item', () => {
-    const expectedId = 5;
-    const newState = editedItemId(null, {
-        type: TODO_LIST_ITEM_START_EDITING,
-        payload: {
-            id: expectedId
-        }
+describe('editedItemId reducer', () => {
+    test('stores id of the edited item', () => {
+        const expectedId = 5;
+        const newState = editedItemId(null, startEditingItem(expectedId));
+        expect(newState).toBe(expectedId);
     });
-    expect(newState).toBe(expectedId);
+
+    test('clears the edited item id', () => {
+        const newState = editedItemId(5, cancelEditingItem());
+        expect(newState).toBeNull();
+    });
 });
