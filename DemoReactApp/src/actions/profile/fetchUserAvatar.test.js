@@ -1,4 +1,4 @@
-import { fetchUserAvatar } from './fetchUserAvatar';
+import { fetchUserAvatarFactory } from './fetchUserAvatar';
 import {
     startFetchingProfileAvatar,
     updateProfileaAvatar
@@ -12,12 +12,12 @@ test('dispatches actions in correct order', async done => {
         }
     });
 
-    const dispatchable = fetchUserAvatar(3);
-
     const expectedUri = 'http://blob/avatar.png';
-    global.fetch = () => Promise.resolve({ status: 200, json: () => Promise.resolve(expectedUri) });
 
+    const fetchUserAvatar = fetchUserAvatarFactory(() => Promise.resolve(expectedUri));
+    const dispatchable = fetchUserAvatar(3);
     await dispatchable(dispatch, getState);
+
     expect(dispatch).toHaveBeenCalledWith(startFetchingProfileAvatar());
     expect(dispatch).toHaveBeenLastCalledWith(updateProfileaAvatar(expectedUri));
     done();

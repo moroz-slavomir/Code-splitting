@@ -12,15 +12,13 @@ import {
     failAuthentication,
     invalidateToken
 } from '../shared/actionCreators';
-import { fetchReceive } from '../../utils/api/fetchReceive';
 import { convertFromServerDetails } from '../../utils/api/conversions/profileDetails';
 import {
     EXPIRED_AUTHENTICATION_MESSAGE,
     FAILED_FETCH_DETAILS_MESSAGE
 } from '../../constants/uiConstants';
-import { fetchUserAvatar } from './fetchUserAvatar';
 
-export const fetchUserDetails = () =>
+export const fetchUserDetailsFactory = ({ fetchReceive, fetchUserAvatar }) => () =>
     (dispatch, getState) => {
         dispatch(startFetchingProfileDetails());
         dispatch(startFetchingProfileAvatar());
