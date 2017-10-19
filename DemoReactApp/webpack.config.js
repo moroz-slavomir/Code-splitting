@@ -29,7 +29,7 @@ if (env === productionEnv) {
 }
 
 module.exports = {
-    entry: ['babel-polyfill', './src/app.jsx'],
+    entry: ['babel-polyfill', './src/app/app.jsx'],
     output: {
         path: __dirname + '/build',
         filename: 'app.js'
